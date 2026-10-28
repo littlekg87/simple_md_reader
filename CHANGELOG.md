@@ -5,6 +5,15 @@ All notable changes to simple_md_reader. Versions follow [Semantic Versioning](h
 
 새 버전 내려받기 · Download the latest version: [simple_md_reader.html](https://github.com/littlekg87/simple_md_reader/releases/latest/download/simple_md_reader.html)
 
+## [1.0.1] — 2026-10-28
+
+- 추가: **화면 배율** 설정 (보기 설정 → 자동 / 100%~200%). 메뉴·버튼·목록 크기를 한꺼번에 키웁니다. 기본값 ‘자동’은 큰 화면에서 알아서 키워 줍니다.
+  Added an **interface size** setting (View settings → Auto / 100%–200%) that scales menus, buttons and lists together. The default, Auto, enlarges them on large screens.
+- 고침: 해상도가 높은 화면에서 메뉴와 버튼이 너무 작게 보이던 문제
+  Fixed menus and buttons looking too small on high-resolution screens.
+- 버전 정보를 파일 목록 아래와 시작 화면에 늘 보이게 함
+  The version is now always shown below the file list and on the start screen.
+
 ## [1.0.0] — 2026-10-28
 
 첫 공개 버전 · First public release
@@ -22,4 +31,5 @@ All notable changes to simple_md_reader. Versions follow [Semantic Versioning](h
 - 한국어 / English 화면 전환
   Korean / English interface
 
+[1.0.1]: https://github.com/littlekg87/simple_md_reader/releases/tag/v1.0.1
 [1.0.0]: https://github.com/littlekg87/simple_md_reader/releases/tag/v1.0.0

@@ -59,7 +59,7 @@ Chrome이나 Edge로 위 주소를 열면 설치 없이 바로 쓸 수 있습니
 
 - 라이트 / 다크 / 내 색(배경색·글자색 직접 선택) 테마
 - 글꼴: 기본 3종 또는 내 컴퓨터에 설치된 글꼴 중 직접 선택
-- 글자 크기·줄 간격·본문 폭 조절
+- 글자 크기·줄 간격·본문 폭 조절, 화면 배율(메뉴·버튼 크기, 큰 화면에서 자동 확대)
 - 읽기 ↔ 원문 편집 전환, 원본 파일에 바로 저장, 수정 취소
 - 최근 연 파일 목록, 폴더 목록
 - 목차, 표, 각주(마우스를 올리면 미리 보기), 수식(KaTeX), Mermaid 다이어그램, 코드 색 강조
@@ -135,7 +135,7 @@ An internet connection is needed to load fonts, math and diagram support.
 
 - Light / Dark / My colors (pick any background and text color) themes
 - Fonts: three built-in choices, or any font installed on your computer
-- Adjustable text size, line spacing and text width
+- Adjustable text size, line spacing and text width, plus interface size (auto-enlarged on large screens)
 - Switch between reading and editing, save straight to the original file, revert changes
 - Recent files list and folder list
 - Table of contents, tables, footnotes (hover to preview), math (KaTeX), Mermaid diagrams, code highlighting

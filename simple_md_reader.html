@@ -290,6 +290,12 @@ body.editing main { background: var(--edit-bg); }
 @media (max-width: 900px) { .features { grid-template-columns: repeat(2, 1fr); } }
 @media (max-width: 520px) { .features { grid-template-columns: 1fr; } }
 .welcome h1 { font-size: 28px; margin: 0 0 10px; letter-spacing: -.02em; }
+.ver-tag {
+  display: inline-block; vertical-align: middle; margin-left: 6px; padding: 3px 9px; border-radius: 999px;
+  background: var(--accent-soft); color: var(--accent); font-size: 13px; font-weight: 600; letter-spacing: 0;
+  text-decoration: none; font-family: var(--font-ui);
+}
+.ver-tag:hover { text-decoration: underline; }
 .welcome .lead { color: var(--muted); font-size: 16px; line-height: 1.7; margin: 0 0 28px; word-break: keep-all; }
 .welcome .actions { display: flex; justify-content: center; flex-wrap: wrap; gap: 10px; }
 .welcome .hint { color: var(--faint); font-size: 14.5px; margin-top: 14px; }
@@ -531,7 +537,7 @@ const I18N = {
   ko: {
     appName: 'simple_md_reader', glyph: '가',
     tHome: '시작 화면으로', tAbout: '정보 · 제작자 · 이용 범위',
-    featuresTitle: '핵심 기능',
+    featuresTitle: '핵심 기능', tChangelog: '업데이트 기록 보기',
     f1T: '읽기에 맞춘 화면', f1D: '목차와 함께 표·각주·수식·다이어그램까지 깔끔하게 보여 줍니다.',
     f2T: '그 자리에서 수정', f2D: '본문을 더블클릭하면 바로 고치고, Ctrl+S로 원본 파일에 저장합니다.',
     f3T: '내 색, 내 글꼴', f3D: '라이트·다크 말고도 배경색·글자색·서체를 마음대로 고를 수 있습니다.',
@@ -583,7 +589,7 @@ const I18N = {
     parseErr: '문서를 해석하지 못했습니다: {msg}',
     credit: '© {year} <b>김근하</b> · CC BY-NC 4.0 · <a href="{github}" target="_blank" rel="noopener">GitHub</a> · <a data-about tabindex="0">제작자 · 이용 범위 보기</a>',
     about: `<h2 id="about-title">simple_md_reader</h2>
-      <p class="ver">버전 {version} · {released}</p>
+      <p class="ver">버전 {version} · {released} · <a href="{repo}/blob/main/CHANGELOG.md" target="_blank" rel="noopener">업데이트 기록</a> · <a href="{repo}/releases/latest" target="_blank" rel="noopener">최신 버전 받기</a></p>
       <p class="desc">md 파일을 편하게 읽고, 그 자리에서 바로 고쳐 저장할 수 있는 간단한 리더입니다.</p>
       <dl>
         <dt>만든 사람</dt><dd><b>김근하</b><br><span class="sub">대한민국, 국립부경대학교 해양인문학연구소 전임연구원</span></dd>
@@ -603,7 +609,7 @@ const I18N = {
   en: {
     appName: 'simple_md_reader', glyph: 'A',
     tHome: 'Start screen', tAbout: 'About · author · license',
-    featuresTitle: 'Key features',
+    featuresTitle: 'Key features', tChangelog: 'See the changelog',
     f1T: 'Made for reading', f1D: 'Clean layout with contents, tables, footnotes, math and diagrams.',
     f2T: 'Edit in place', f2D: 'Double-click the text to edit, then press Ctrl+S to save the original file.',
     f3T: 'Your colors, your font', f3D: 'Beyond light and dark, pick any background, text color and typeface.',
@@ -655,7 +661,7 @@ const I18N = {
     parseErr: 'Could not parse the document: {msg}',
     credit: '© {year} <b>Kunha Kim</b> · CC BY-NC 4.0 · <a href="{github}" target="_blank" rel="noopener">GitHub</a> · <a data-about tabindex="0">About, author &amp; license</a>',
     about: `<h2 id="about-title">simple_md_reader</h2>
-      <p class="ver">Version {version} · {released}</p>
+      <p class="ver">Version {version} · {released} · <a href="{repo}/blob/main/CHANGELOG.md" target="_blank" rel="noopener">Changelog</a> · <a href="{repo}/releases/latest" target="_blank" rel="noopener">Get the latest version</a></p>
       <p class="desc">A simple reader for Markdown files that lets you read comfortably and edit and save in place.</p>
       <dl>
         <dt>Author</dt><dd><b>Kunha Kim</b><br><span class="sub">Full-time Researcher, Institute of Marine Humanities, Pukyong National University, Republic of Korea</span></dd>
@@ -1428,7 +1434,7 @@ function showWelcome() {
     return;
   }
   const box = setScreen(showWelcome, `<div class="welcome">
-    <h1>${esc(t('appName'))}</h1>
+    <h1>${esc(t('appName'))} <a class="ver-tag" href="${REPO}/blob/main/CHANGELOG.md" target="_blank" rel="noopener" title="${esc(t('tChangelog'))}">v${VERSION}</a></h1>
     <p class="lead">${t('lead')}</p>
     <div class="actions">
       <button class="wbtn primary" id="w-file">${ICON.file}${esc(t('openFile'))}</button>

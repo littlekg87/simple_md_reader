@@ -5,10 +5,10 @@
 md 파일을 편하게 읽고, 그 자리에서 바로 고쳐 저장하는 간단한 리더<br>
 A simple reader for Markdown files that lets you read comfortably and edit in place
 
-**[👉 바로 쓰기 · Try it now](https://littlekg87.github.io/simple_md_reader/)** &nbsp;|&nbsp; **[⬇️ 내려받기 · Download (zip)](https://github.com/littlekg87/simple_md_reader/releases/latest/download/simple_md_reader.zip)**
+**[👉 바로 쓰기 · Try it now](https://littlekg87.github.io/simple_md_reader/)** &nbsp;|&nbsp; **[⬇️ 내려받기 · Download](https://github.com/littlekg87/simple_md_reader/releases/latest/download/simple_md_reader.html)**
 
 [![License: CC BY-NC 4.0](https://img.shields.io/badge/License-CC%20BY--NC%204.0-lightgrey.svg)](https://creativecommons.org/licenses/by-nc/4.0/)
-![Version](https://img.shields.io/badge/version-1.0.0-blue.svg)
+[![Version](https://img.shields.io/github/v/release/littlekg87/simple_md_reader?label=version)](CHANGELOG.md)
 ![Browser](https://img.shields.io/badge/browser-Chrome%20%7C%20Edge-informational.svg)
 
 **만든 사람 · Author**: 김근하 Kunha Kim · [포트폴리오 · Portfolio](https://github.com/littlekg87/littlekg87)
@@ -37,12 +37,15 @@ Chrome이나 Edge로 위 주소를 열면 설치 없이 바로 쓸 수 있습니
 
 ### 내려받아 쓰기
 
-**[⬇️ simple_md_reader.zip 내려받기](https://github.com/littlekg87/simple_md_reader/releases/latest/download/simple_md_reader.zip)** (항상 최신 버전)
+**[⬇️ simple_md_reader.html 내려받기](https://github.com/littlekg87/simple_md_reader/releases/latest/download/simple_md_reader.html)** (항상 최신 버전)
 
-1. 위 링크로 zip 파일을 받아 압축을 풉니다.
-2. 폴더 안의 `simple_md_reader.html`을 **Chrome** 또는 **Edge**로 엽니다. 파일을 브라우저 창에 끌어다 놓아도 됩니다.
+프로그램은 HTML 파일 하나가 전부입니다. 받은 `simple_md_reader.html`을 **Chrome** 또는 **Edge**로 열면 됩니다. 파일을 브라우저 창에 끌어다 놓아도 됩니다.
 
-지난 버전과 바뀐 내용은 [Releases](https://github.com/littlekg87/simple_md_reader/releases)에서 볼 수 있습니다.
+### 버전과 업데이트
+
+- 지금 쓰는 버전은 프로그램 시작 화면의 제목 옆과 정보(ⓘ) 창에 나옵니다.
+- 버전마다 바뀐 내용은 [CHANGELOG.md](CHANGELOG.md)에, 지난 버전 파일은 [Releases](https://github.com/littlekg87/simple_md_reader/releases)에 있습니다.
+- 새 버전이 나오면 위 링크로 다시 받아 기존 파일을 바꾸면 됩니다. 최근 파일 목록과 보기 설정은 그대로 남습니다.
 
 ### 사용 방법
 
@@ -110,12 +113,15 @@ Open the link in Chrome or Edge and start right away. Files you open are read an
 
 ### Download
 
-**[⬇️ Download simple_md_reader.zip](https://github.com/littlekg87/simple_md_reader/releases/latest/download/simple_md_reader.zip)** (always the latest version)
+**[⬇️ Download simple_md_reader.html](https://github.com/littlekg87/simple_md_reader/releases/latest/download/simple_md_reader.html)** (always the latest version)
 
-1. Download the zip file and unzip it.
-2. Open `simple_md_reader.html` in **Chrome** or **Edge**. You can also drag the file onto a browser window.
+The whole program is a single HTML file. Open the downloaded `simple_md_reader.html` in **Chrome** or **Edge**, or drag it onto a browser window.
 
-See [Releases](https://github.com/littlekg87/simple_md_reader/releases) for earlier versions and what changed.
+### Versions and updates
+
+- The version you are using is shown next to the title on the start screen and in the About (ⓘ) window.
+- See [CHANGELOG.md](CHANGELOG.md) for what changed in each version, and [Releases](https://github.com/littlekg87/simple_md_reader/releases) for earlier files.
+- When a new version comes out, download it again from the link above and replace your old file. Your recent files and view settings are kept.
 
 ### How to use
 

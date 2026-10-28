@@ -1,0 +1,46 @@
+simple_md_reader
+Copyright (c) 2026 김근하 (Kunha Kim)
+
+This work is licensed under the Creative Commons
+Attribution-NonCommercial 4.0 International License (CC BY-NC 4.0).
+
+To view a copy of this license, visit
+https://creativecommons.org/licenses/by-nc/4.0/
+(Full legal code: https://creativecommons.org/licenses/by-nc/4.0/legalcode)
+
+You are free to:
+  - Share: copy and redistribute the material in any medium or format.
+  - Adapt: remix, transform, and build upon the material.
+
+Under the following terms:
+  - Attribution: You must give appropriate credit (author: Kunha Kim / 김근하),
+    provide a link to the license, and indicate if changes were made.
+  - NonCommercial: You may not use the material for commercial purposes.
+
+Commercial use requires separate written permission from the author.
+Contact: littlekg87@naver.com
+
+------------------------------------------------------------------------
+
+이 저작물은 크리에이티브 커먼즈 저작자표시-비영리 4.0 국제 라이선스
+(CC BY-NC 4.0)에 따라 이용할 수 있습니다.
+https://creativecommons.org/licenses/by-nc/4.0/deed.ko
+
+- 누구나 자유롭게 복제·배포하고, 고치거나 바꾸어 쓸 수 있습니다.
+- 이용할 때는 만든 사람(김근하)과 라이선스를 밝히고, 고친 부분이 있으면 알려야 합니다.
+- 상업적 목적으로는 이용할 수 없습니다.
+
+상업적 이용은 만든 사람의 별도 허락이 필요합니다.
+문의: littlekg87@naver.com
+
+------------------------------------------------------------------------
+
+Third-party components (loaded from public CDNs, each under its own license):
+  markdown-it            MIT
+  markdown-it-footnote   MIT
+  highlight.js           BSD-3-Clause
+  DOMPurify              Apache-2.0 / MPL-2.0
+  KaTeX                  MIT
+  Mermaid                MIT
+  Pretendard (font)      SIL Open Font License 1.1
+  Noto Serif KR (font)   SIL Open Font License 1.1

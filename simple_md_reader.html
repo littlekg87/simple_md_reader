@@ -148,6 +148,12 @@ main { grid-column: 2; grid-row: 1; }
 }
 .trow:hover .x { visibility: visible; }
 .trow .x:hover { background: var(--border); color: var(--text); }
+.sb-foot {
+  flex: none; display: flex; align-items: center; gap: 6px; width: 100%; border: 0; border-top: 1px solid var(--border);
+  background: none; padding: 11px 16px; color: var(--faint); font-size: 13px; text-align: left; cursor: pointer;
+}
+.sb-foot b { color: var(--muted); font-family: var(--font-mono); font-weight: 600; }
+.sb-foot:hover { color: var(--text); background: var(--surface-2); }
 .tree-empty { color: var(--faint); font-size: 14.5px; padding: 14px 10px; line-height: 1.6; word-break: keep-all; }
 .tree-empty .wbtn { margin-top: 12px; width: 100%; }
 
@@ -424,6 +430,7 @@ body.dropping .dropzone { display: flex; }
     </div>
     <div class="sb-filter"><input id="filter" type="search" data-i18n-ph="filterPh" autocomplete="off"></div>
     <nav class="tree" id="tree"></nav>
+    <button class="sb-foot" id="sb-ver" data-i18n-title="tAbout"></button>
   </aside>
 
   <main id="main">
@@ -589,7 +596,7 @@ const I18N = {
     parseErr: '문서를 해석하지 못했습니다: {msg}',
     credit: '© {year} <b>김근하</b> · CC BY-NC 4.0 · <a href="{github}" target="_blank" rel="noopener">GitHub</a> · <a data-about tabindex="0">제작자 · 이용 범위 보기</a>',
     about: `<h2 id="about-title">simple_md_reader</h2>
-      <p class="ver">버전 {version} · {released} · <a href="{repo}/blob/main/CHANGELOG.md" target="_blank" rel="noopener">업데이트 기록</a> · <a href="{repo}/releases/latest" target="_blank" rel="noopener">최신 버전 받기</a></p>
+      <p class="ver">version {version} · {released} · <a href="{repo}/blob/main/CHANGELOG.md" target="_blank" rel="noopener">업데이트 기록</a> · <a href="{repo}/releases/latest" target="_blank" rel="noopener">최신 버전 받기</a></p>
       <p class="desc">md 파일을 편하게 읽고, 그 자리에서 바로 고쳐 저장할 수 있는 간단한 리더입니다.</p>
       <dl>
         <dt>만든 사람</dt><dd><b>김근하</b><br><span class="sub">대한민국, 국립부경대학교 해양인문학연구소 전임연구원</span></dd>
@@ -661,7 +668,7 @@ const I18N = {
     parseErr: 'Could not parse the document: {msg}',
     credit: '© {year} <b>Kunha Kim</b> · CC BY-NC 4.0 · <a href="{github}" target="_blank" rel="noopener">GitHub</a> · <a data-about tabindex="0">About, author &amp; license</a>',
     about: `<h2 id="about-title">simple_md_reader</h2>
-      <p class="ver">Version {version} · {released} · <a href="{repo}/blob/main/CHANGELOG.md" target="_blank" rel="noopener">Changelog</a> · <a href="{repo}/releases/latest" target="_blank" rel="noopener">Get the latest version</a></p>
+      <p class="ver">version {version} · {released} · <a href="{repo}/blob/main/CHANGELOG.md" target="_blank" rel="noopener">Changelog</a> · <a href="{repo}/releases/latest" target="_blank" rel="noopener">Get the latest version</a></p>
       <p class="desc">A simple reader for Markdown files that lets you read comfortably and edit and save in place.</p>
       <dl>
         <dt>Author</dt><dd><b>Kunha Kim</b><br><span class="sub">Full-time Researcher, Institute of Marine Humanities, Pukyong National University, Republic of Korea</span></dd>
@@ -771,6 +778,7 @@ function applyLang() {
   $('#btn-lang').textContent = prefs.lang === 'ko' ? 'EN' : '한';
   $('#pop-keys').innerHTML = keysHtml();
   $('#pop-credit').innerHTML = creditHtml();
+  $('#sb-ver').innerHTML = `<b>simple_md_reader</b> · version ${VERSION}`;
   updateModeBtn(); updateCrumb(); setDirty(S.dirty); renderSide();
   if (S.screen) S.screen();
   else if (!tocHeads.length) buildToc();
@@ -1434,7 +1442,7 @@ function showWelcome() {
     return;
   }
   const box = setScreen(showWelcome, `<div class="welcome">
-    <h1>${esc(t('appName'))} <a class="ver-tag" href="${REPO}/blob/main/CHANGELOG.md" target="_blank" rel="noopener" title="${esc(t('tChangelog'))}">v${VERSION}</a></h1>
+    <h1>${esc(t('appName'))} <a class="ver-tag" href="${REPO}/blob/main/CHANGELOG.md" target="_blank" rel="noopener" title="${esc(t('tChangelog'))}">version ${VERSION}</a></h1>
     <p class="lead">${t('lead')}</p>
     <div class="actions">
       <button class="wbtn primary" id="w-file">${ICON.file}${esc(t('openFile'))}</button>
@@ -1701,6 +1709,7 @@ function openAbout() {
 }
 const closeAbout = () => { about.hidden = true; };
 $('#btn-about').onclick = openAbout;
+$('#sb-ver').onclick = openAbout;
 $('#about-close').onclick = closeAbout;
 about.addEventListener('click', e => { if (e.target === about) closeAbout(); });
 document.addEventListener('click', e => {

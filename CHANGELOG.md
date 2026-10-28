@@ -5,6 +5,11 @@ All notable changes to simple_md_reader. Versions follow [Semantic Versioning](h
 
 새 버전 내려받기 · Download the latest version: [simple_md_reader.html](https://github.com/littlekg87/simple_md_reader/releases/latest/download/simple_md_reader.html)
 
+## [1.2.0] — 2026-10-28
+
+- 추가: **편집하며 미리보기** (편집 중 위쪽의 ‘미리보기’ 버튼 또는 `Alt+P`). 왼쪽에 원문, 오른쪽에 실제 보이는 모습이 나란히 나오고, 입력하는 대로 바로 바뀝니다. 원문을 스크롤하면 미리보기도 같은 곳을 따라가고, 미리보기를 더블클릭하면 원문의 그 줄로 커서가 옮겨 갑니다. 켜고 끈 상태는 기억합니다. 창이 좁으면 위아래로 놓입니다.
+  Added **preview while editing** (the “Preview” button while editing, or `Alt+P`). The source sits on the left and the rendered page on the right, updating as you type. The preview follows as you scroll the source, and double-clicking the preview moves the cursor to that line. The setting is remembered; on narrow windows the two stack vertically.
+
 ## [1.1.0] — 2026-10-28
 
 - 추가: **새 메모** (왼쪽 위 ‘새 메모’ 버튼 또는 `Alt+N`). 빈 화면에 바로 쓰고, `Ctrl+S`를 처음 누를 때 저장 위치와 이름을 정합니다. 폴더를 열어 두었으면 그 폴더에 이름만 정해 바로 저장할 수 있고, 첫 제목이 파일 이름으로 제안됩니다.
@@ -38,6 +43,7 @@ All notable changes to simple_md_reader. Versions follow [Semantic Versioning](h
 - 한국어 / English 화면 전환
   Korean / English interface
 
+[1.2.0]: https://github.com/littlekg87/simple_md_reader/releases/tag/v1.2.0
 [1.1.0]: https://github.com/littlekg87/simple_md_reader/releases/tag/v1.1.0
 [1.0.1]: https://github.com/littlekg87/simple_md_reader/releases/tag/v1.0.1
 [1.0.0]: https://github.com/littlekg87/simple_md_reader/releases/tag/v1.0.0

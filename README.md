@@ -60,7 +60,7 @@ Chrome이나 Edge로 위 주소를 열면 설치 없이 바로 쓸 수 있습니
 - 라이트 / 다크 / 내 색(배경색·글자색 직접 선택) 테마
 - 글꼴: 기본 3종 또는 내 컴퓨터에 설치된 글꼴 중 직접 선택
 - 글자 크기·줄 간격·본문 폭 조절, 화면 배율(메뉴·버튼 크기, 큰 화면에서 자동 확대)
-- 읽기 ↔ 원문 편집 전환, 원본 파일에 바로 저장, 수정 취소
+- 읽기 ↔ 원문 편집 전환, 편집하며 오른쪽에 나란히 미리보기, 원본 파일에 바로 저장, 수정 취소
 - 새 메모: 빈 화면에 바로 쓰고 저장할 때 위치·이름 정하기, 저장 전 메모는 브라우저에 임시 보관
 - 최근 연 파일 목록, 폴더 목록
 - 목차, 표, 각주(마우스를 올리면 미리 보기), 수식(KaTeX), Mermaid 다이어그램, 코드 색 강조
@@ -76,6 +76,7 @@ Chrome이나 Edge로 위 주소를 열면 설치 없이 바로 쓸 수 있습니
 | `Ctrl+S` | 원본 파일에 저장 |
 | `Esc` | 편집 끝내고 읽기로 |
 | `Ctrl+휠`, `Ctrl+=` / `Ctrl+-` | 글자 크기 |
+| `Alt+P` | 편집하며 미리보기 켜기/끄기 |
 | `Alt+N` | 새 메모 |
 | `Ctrl+O` / `Ctrl+Shift+O` | 파일 열기 / 폴더 열기 |
 | `Ctrl+\` | 파일 목록 접기 |
@@ -138,7 +139,7 @@ An internet connection is needed to load fonts, math and diagram support.
 - Light / Dark / My colors (pick any background and text color) themes
 - Fonts: three built-in choices, or any font installed on your computer
 - Adjustable text size, line spacing and text width, plus interface size (auto-enlarged on large screens)
-- Switch between reading and editing, save straight to the original file, revert changes
+- Switch between reading and editing, a side-by-side preview while editing, save straight to the original file, revert changes
 - New notes: start writing right away and choose a name and location when you save; unsaved notes are kept in your browser
 - Recent files list and folder list
 - Table of contents, tables, footnotes (hover to preview), math (KaTeX), Mermaid diagrams, code highlighting
@@ -154,6 +155,7 @@ An internet connection is needed to load fonts, math and diagram support.
 | `Ctrl+S` | Save to the original file |
 | `Esc` | Finish editing |
 | `Ctrl+Wheel`, `Ctrl+=` / `Ctrl+-` | Text size |
+| `Alt+P` | Show/hide preview while editing |
 | `Alt+N` | New note |
 | `Ctrl+O` / `Ctrl+Shift+O` | Open file / Open folder |
 | `Ctrl+\` | Toggle file list |

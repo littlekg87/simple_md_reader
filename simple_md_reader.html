@@ -1,6 +1,6 @@
 <!doctype html>
 <!--
-  simple_md_reader v1.1.0
+  simple_md_reader v1.2.0
   Copyright (c) 2026 김근하 Kunha Kim
   대한민국, 국립부경대학교 해양인문학연구소 전임연구원
   (Full-time Researcher, Institute of Marine Humanities, Pukyong National University, Republic of Korea)
@@ -169,6 +169,20 @@ main { grid-column: 2; grid-row: 1; }
 
 main { overflow: auto; min-width: 0; position: relative; }
 body.editing main { background: var(--edit-bg); }
+
+/* 편집 중 나란히 미리보기: 왼쪽 원문(본문 스크롤) · 오른쪽 미리보기(따로 스크롤) */
+body.split main { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); align-items: start; }
+body.split .banner { grid-column: 1 / -1; grid-row: 1; }
+body.split .editor { grid-column: 1; grid-row: 2; max-width: none; padding: 2rem 2.25rem 35vh; }
+body.split #doc {
+  grid-column: 2; grid-row: 2; position: sticky; top: 0; height: calc(100vh - 3.5rem); overflow: auto;
+  max-width: none; margin: 0; padding: 2rem 2.25rem 30vh; box-sizing: border-box;
+  border-left: 1px solid var(--border); background: var(--bg);
+}
+@media (max-width: 900px) {
+  body.split main { grid-template-columns: minmax(0, 1fr); }
+  body.split #doc { grid-column: 1; grid-row: 3; position: static; height: auto; border-left: 0; border-top: 1px solid var(--border); padding-bottom: 4rem; }
+}
 
 .toc { border-left: 1px solid var(--border); overflow: auto; padding: 1.375rem 0.625rem 2.5rem; }
 .toc-title { font-size: 0.7812rem; font-weight: 700; letter-spacing: .06em; color: var(--faint); padding: 0 0.625rem 0.625rem; }
@@ -416,6 +430,7 @@ body.dropping .dropzone { display: flex; }
   <button class="ibtn save-btn" id="btn-discard" data-i18n-title="tDiscard"><svg viewBox="0 0 24 24"><path d="M9 14L4 9l5-5"/><path d="M4 9h10.5a5.5 5.5 0 0 1 0 11H11"/></svg><span data-i18n="discard"></span></button>
   <button class="ibtn primary save-btn" id="btn-save" data-i18n-title="tSave"><svg viewBox="0 0 24 24"><path d="M5 3h11l4 4v12a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V5a2 2 0 0 1 1-2z"/><path d="M8 3v5h7V3"/><path d="M7 21v-7h10v7"/></svg><span data-i18n="save"></span></button>
   <button class="ibtn" id="btn-mode" data-i18n-title="tMode" disabled></button>
+  <button class="ibtn" id="btn-preview" data-i18n-title="tPreview" hidden><svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="16" rx="2"/><path d="M12 4v16M6 9h3M6 12h3M15 9h3M15 12h3M15 15h3"/></svg><span data-i18n="preview"></span></button>
   <span class="sep"></span>
   <button class="ibtn" id="btn-smaller" data-i18n-title="tSmaller"><span style="font-size:13px;font-weight:700" data-i18n="glyph"></span>−</button>
   <span class="size-val" id="size-val"></span>
@@ -550,7 +565,7 @@ const CDN = {
 const SKIP_DIRS = new Set(['node_modules', '__pycache__', 'venv', 'site-packages']);
 const MD_RE = /\.(md|markdown)$/i;
 const RECENT_MAX = 30;
-const CONTACT = 'littlekg87@gmail.com', VERSION = '1.1.0', YEAR = '2026';
+const CONTACT = 'littlekg87@gmail.com', VERSION = '1.2.0', YEAR = '2026';
 const GITHUB = 'https://github.com/littlekg87', REPO = 'https://github.com/littlekg87/simple_md_reader';
 const RELEASED = { ko: '2026년 10월', en: 'October 2026' };
 
@@ -568,7 +583,7 @@ const I18N = {
     saveAsQ: '어디에 저장할까요?', saveAsSub: '열려 있는 폴더 ‘{folder}’에 바로 저장하거나, 다른 위치를 고를 수 있습니다.',
     saveHere: '이 폴더에 저장', saveElsewhere: '다른 위치…', overwriteQ: '‘{name}’ 파일이 이미 있습니다. 덮어쓸까요?', overwrite: '덮어쓰기',
     dropDraftQ: '이 메모를 버릴까요?', dropDraftSub: '저장하지 않은 메모 내용이 모두 지워집니다. 되돌릴 수 없습니다.', dropDraftBtn: '메모 버리기',
-    kNew: '새 메모',
+    kNew: '새 메모', kPreview: '편집하며 미리보기', preview: '미리보기', tPreview: '오른쪽에 미리보기 켜기/끄기 (Alt+P)',
     f3T: '내 색, 내 글꼴', f3D: '라이트·다크 말고도 배경색·글자색·서체를 마음대로 고를 수 있습니다.',
     f4T: '편한 글자 크기', f4D: 'Ctrl+휠로 글자 크기를, 보기 설정에서 줄 간격과 본문 폭을 맞춥니다.',
     f5T: '바뀌면 바로 반영', f5D: '다른 프로그램에서 파일을 고치면 화면이 저절로 새로 고쳐집니다.',
@@ -647,7 +662,7 @@ const I18N = {
     saveAsQ: 'Where should it be saved?', saveAsSub: 'Save it straight into the open folder “{folder}”, or choose another location.',
     saveHere: 'Save in this folder', saveElsewhere: 'Elsewhere…', overwriteQ: '“{name}” already exists. Overwrite it?', overwrite: 'Overwrite',
     dropDraftQ: 'Discard this note?', dropDraftSub: 'Everything in this unsaved note will be deleted. This cannot be undone.', dropDraftBtn: 'Discard note',
-    kNew: 'New note',
+    kNew: 'New note', kPreview: 'Preview while editing', preview: 'Preview', tPreview: 'Show/hide preview on the right (Alt+P)',
     f3T: 'Your colors, your font', f3D: 'Beyond light and dark, pick any background, text color and typeface.',
     f4T: 'Comfortable text', f4D: 'Ctrl+Wheel for text size; line spacing and width in view settings.',
     f5T: 'Live updates', f5D: 'When another program changes the file, the page refreshes by itself.',
@@ -722,7 +737,7 @@ let docEl = $('#doc');
 // ── 설정 ──
 const DEFAULTS = {
   theme: null, size: 17, width: 'normal', font: 'sans', lh: 'normal', sidebar: true, toc: true, lang: 'ko', view: 'recent',
-  custom: { bg: '#f4ecd8', text: '#3b2f1e' }, customFont: '', ui: 'auto',
+  custom: { bg: '#f4ecd8', text: '#3b2f1e' }, customFont: '', ui: 'auto', preview: false,
 };
 // 화면 배율: 메뉴·버튼·목록 크기 (본문 글자 크기와는 따로). '자동'은 창 폭에 맞춰 고른다
 const autoUiScale = () => innerWidth >= 3000 ? 1.75 : innerWidth >= 2400 ? 1.5 : innerWidth >= 1900 ? 1.25 : 1;
@@ -799,7 +814,7 @@ function applyPrefs() {
 function keysHtml() {
   return [
     ['Ctrl+E', t('kEdit')], [t('kDblKey'), t('kDbl')], ['Ctrl+S', t('kSave')], ['Esc', t('kEsc')],
-    [t('kWheelKey'), t('kSize')], ['Alt+N', t('kNew')], ['Ctrl+O', t('kOpen')], ['Ctrl+Shift+O', t('kOpenFolder')], ['Ctrl+\\', t('kSide')],
+    [t('kWheelKey'), t('kSize')], ['Alt+P', t('kPreview')], ['Alt+N', t('kNew')], ['Ctrl+O', t('kOpen')], ['Ctrl+Shift+O', t('kOpenFolder')], ['Ctrl+\\', t('kSide')],
   ].map(([k, v]) => `<kbd>${esc(k)}</kbd><span>${esc(v)}</span>`).join('');
 }
 
@@ -1047,12 +1062,42 @@ async function renderDoc(text, { keepScroll = false } = {}) {
   clearTimeout(busyTimer);
   if (seq !== renderSeq) return;
   $('#busy').hidden = true;
-  const top = main.scrollTop;
-  box.hidden = S.mode === 'edit';
+  const top = main.scrollTop, previewTop = docEl.scrollTop;
+  box.hidden = S.mode === 'edit' && !prefs.preview;
   docEl.replaceWith(box);
   docEl = box;
   buildToc();
   if (keepScroll) main.scrollTop = top;
+  if (splitOn()) box.scrollTop = previewTop;
+}
+
+// ── 나란히 미리보기 ──
+const splitOn = () => S.mode === 'edit' && prefs.preview;
+let previewTimer, previewRaf = 0;
+function schedulePreview() {
+  if (!splitOn()) return;
+  clearTimeout(previewTimer);
+  previewTimer = setTimeout(async () => { await renderDoc(S.cur.text); syncPreview(); }, 250);
+}
+// 원문에서 맨 위에 보이는 줄에 맞춰 미리보기를 스크롤한다
+function syncPreview() {
+  previewRaf = 0;
+  if (!splitOn() || innerWidth <= 900) return;
+  const { line } = topVisibleEditorLine();
+  let best = null;
+  for (const el of docEl.querySelectorAll('[data-line]')) if (+el.dataset.line <= line) best = el;
+  docEl.scrollTop = best ? docEl.scrollTop + best.getBoundingClientRect().top - docEl.getBoundingClientRect().top - 16 : 0;
+}
+async function togglePreview() {
+  if (!S.cur || S.screen) return;
+  if (S.mode !== 'edit') { prefs.preview = true; savePrefs(); enterEdit(); return; }
+  prefs.preview = !prefs.preview;
+  savePrefs();
+  docEl.hidden = !prefs.preview;
+  updateModeBtn();
+  autosize();
+  if (prefs.preview) { await renderDoc(S.cur.text); syncPreview(); }
+  editor.focus({ preventScroll: true });
 }
 
 function decorate(box) {
@@ -1111,7 +1156,10 @@ function updateSpy() {
   for (let i = 0; i < items.length; i++) items[i].classList.toggle('active', i === idx);
   items[idx]?.scrollIntoView({ block: 'nearest' });
 }
-main.addEventListener('scroll', () => { if (!spyRaf) spyRaf = requestAnimationFrame(updateSpy); });
+main.addEventListener('scroll', () => {
+  if (!spyRaf) spyRaf = requestAnimationFrame(updateSpy);
+  if (splitOn() && !previewRaf) previewRaf = requestAnimationFrame(syncPreview);
+});
 
 // ── 왼쪽 목록: 최근 파일 / 폴더 ──
 function setView(v) {
@@ -1366,7 +1414,7 @@ async function discard() {
   setDirty(false);
   if (S.mode === 'edit') {
     const st = main.scrollTop;
-    editor.value = S.cur.text; autosize();
+    editor.value = S.cur.text; autosize(); schedulePreview();
     main.scrollTop = st;
   } else renderDoc(S.cur.text, { keepScroll: true });
   toast(t('discarded'));
@@ -1539,7 +1587,7 @@ setInterval(async () => {
   if (S.mode === 'read') renderDoc(text, { keepScroll: true });
   else {
     const st = main.scrollTop, pos = editor.selectionStart;
-    editor.value = text; autosize();
+    editor.value = text; autosize(); schedulePreview();
     editor.setSelectionRange(pos, pos);
     main.scrollTop = st;
   }
@@ -1550,7 +1598,7 @@ $('#bn-load').onclick = () => {
   S.cur.text = S.cur.saved = S.ext;
   S.ext = null; $('#banner').hidden = true;
   setDirty(false);
-  if (S.mode === 'edit') { editor.value = S.cur.text; autosize(); }
+  if (S.mode === 'edit') { editor.value = S.cur.text; autosize(); schedulePreview(); }
   else renderDoc(S.cur.text, { keepScroll: true });
 };
 $('#bn-keep').onclick = () => { S.ext = null; $('#banner').hidden = true; };
@@ -1647,6 +1695,9 @@ function updateModeBtn() {
   b.disabled = !S.cur || !!S.screen;
   b.innerHTML = S.mode === 'edit' ? ICON.book + esc(t('read')) : ICON.pencil + esc(t('edit'));
   b.classList.toggle('on', S.mode === 'edit');
+  document.body.classList.toggle('split', splitOn());
+  $('#btn-preview').hidden = S.mode !== 'edit';
+  $('#btn-preview').classList.toggle('on', splitOn());
 }
 function autosize() {
   const st = main.scrollTop;
@@ -1723,11 +1774,12 @@ function enterEdit(at = topVisibleDocLine()) {
   $('#fnpop').hidden = true;
   editor.value = S.cur.text;
   editor.placeholder = S.cur.node.draft ? t('memoPh') : '';
-  docEl.hidden = true;
+  docEl.hidden = !prefs.preview;
   editor.hidden = false;
+  updateModeBtn();
   autosize();
   scrollEditorToLine(at ? at.line : 0, at ? Math.max(at.offsetY, 0) : 0);
-  updateModeBtn();
+  syncPreview();
 }
 async function exitEdit() {
   if (S.mode !== 'edit') return;
@@ -1747,6 +1799,7 @@ editor.addEventListener('input', () => {
   S.cur.text = editor.value;
   setDirty(S.cur.text !== S.cur.saved);
   autosize();
+  schedulePreview();
   if (S.cur.node.draft) {
     clearTimeout(draftTimer);
     const cur = S.cur;
@@ -1760,12 +1813,16 @@ editor.addEventListener('keydown', e => {
   }
 });
 main.addEventListener('dblclick', e => {
-  if (S.mode !== 'read' || !S.cur || S.screen || !docEl.contains(e.target)) return;
+  if (!S.cur || S.screen || !docEl.contains(e.target)) return;
+  if (S.mode !== 'read' && !splitOn()) return;
   if (e.target.closest('a, img, svg, button, input, .katex, summary')) return;
   const el = e.target.closest('[data-line]');
   if (!el) return;
   getSelection()?.removeAllRanges();
-  enterEdit({ line: +el.dataset.line, offsetY: el.getBoundingClientRect().top - main.getBoundingClientRect().top });
+  const at = { line: +el.dataset.line, offsetY: el.getBoundingClientRect().top - main.getBoundingClientRect().top };
+  // 미리보기에서 더블클릭하면 원문의 그 줄로 커서를 옮긴다
+  if (splitOn()) scrollEditorToLine(at.line, Math.max(at.offsetY, 0));
+  else enterEdit(at);
 });
 
 // ── 링크 · 각주 ──
@@ -1797,7 +1854,7 @@ main.addEventListener('click', async e => {
 const fnpop = $('#fnpop');
 main.addEventListener('mouseover', e => {
   const a = e.target.closest('.footnote-ref a');
-  if (!a || S.mode !== 'read') return;
+  if (!a || (S.mode !== 'read' && !splitOn())) return;
   let id = a.getAttribute('href').slice(1);
   try { id = decodeURIComponent(id); } catch {}
   const li = docEl.querySelector('#' + CSS.escape(id));
@@ -1904,6 +1961,7 @@ $('#btn-save').onclick = save;
 $('#btn-discard').onclick = discard;
 $('#btn-open-file').onclick = pickFile;
 $('#btn-new').onclick = newMemo;
+$('#btn-preview').onclick = togglePreview;
 $('#btn-open-folder').onclick = pickFolder;
 $('#btn-refresh').onclick = async () => { await refreshTree(); toast(t('refreshed')); };
 
@@ -1940,6 +1998,7 @@ document.addEventListener('keydown', e => {
   else if (mod && k === '0') { e.preventDefault(); bump(0); }
   else if (mod && k === 'o') { e.preventDefault(); e.shiftKey ? pickFolder() : pickFile(); }
   else if (e.altKey && !mod && k === 'n') { e.preventDefault(); newMemo(); }
+  else if (e.altKey && !mod && k === 'p') { e.preventDefault(); togglePreview(); }
   else if (mod && k === '\\') { e.preventDefault(); $('#btn-sidebar').click(); }
   else if (e.key === 'Escape') {
     if (!about.hidden) closeAbout();

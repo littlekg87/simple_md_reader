@@ -1,6 +1,6 @@
 <!doctype html>
 <!--
-  simple_md_reader v1.0.1
+  simple_md_reader v1.1.0
   Copyright (c) 2026 김근하 Kunha Kim
   대한민국, 국립부경대학교 해양인문학연구소 전임연구원
   (Full-time Researcher, Institute of Marine Humanities, Pukyong National University, Republic of Korea)
@@ -120,6 +120,14 @@ main { grid-column: 2; grid-row: 1; }
 .sb-actions { display: flex; gap: 0.375rem; padding: 0.75rem 0.75rem 0.625rem; }
 .sb-actions .wbtn { flex: 1; min-width: 0; height: 2.375rem; padding: 0 0.5rem; font-size: 0.875rem; gap: 0.375rem; }
 .sb-actions .wbtn svg { width: 1.125rem; height: 1.125rem; }
+.sb-actions.second { padding-top: 0; }
+.modal-input {
+  width: 100%; box-sizing: border-box; height: 2.5rem; margin: -0.5rem 0 1.25rem; padding: 0 0.75rem;
+  border: 1px solid var(--border); border-radius: 0.5rem; background: var(--bg); color: var(--text); font-size: 0.9375rem; outline: none;
+}
+.modal-input:focus { border-color: var(--accent); }
+.trow.draft svg { color: var(--accent); }
+.trow.draft .nm { font-style: italic; }
 .sb-tabs { display: flex; align-items: center; gap: 0.25rem; padding: 0 0.75rem 0.625rem; }
 .sb-tabs .seg { flex: 1; }
 .sb-filter { padding: 0 0.75rem 0.625rem; }
@@ -422,9 +430,12 @@ body.dropping .dropzone { display: flex; }
 <div class="layout">
   <aside class="sidebar" id="sidebar">
     <div class="sb-actions">
+      <button class="wbtn primary" id="btn-new" data-i18n-title="tNewMemo"><svg viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></svg><span data-i18n="newMemo"></span></button>
+      <button class="ibtn" id="btn-sidebar-close" data-i18n-title="tSideClose"><svg viewBox="0 0 24 24"><path d="M11 17l-5-5 5-5M18 17l-5-5 5-5"/></svg></button>
+    </div>
+    <div class="sb-actions second">
       <button class="wbtn" id="btn-open-file" data-i18n-title="tOpenFile"><svg viewBox="0 0 24 24"><path d="M7 3h7l5 5v13H7z"/><path d="M14 3v5h5"/></svg><span data-i18n="openFile"></span></button>
       <button class="wbtn" id="btn-open-folder" data-i18n-title="tOpenFolder"><svg viewBox="0 0 24 24"><path d="M3 7a2 2 0 0 1 2-2h4l2 2h8a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V7z"/></svg><span data-i18n="openFolder"></span></button>
-      <button class="ibtn" id="btn-sidebar-close" data-i18n-title="tSideClose"><svg viewBox="0 0 24 24"><path d="M11 17l-5-5 5-5M18 17l-5-5 5-5"/></svg></button>
     </div>
     <div class="sb-tabs">
       <div class="seg" id="view-tabs"><button data-view="recent" data-i18n="tabRecent"></button><button data-view="folder" data-i18n="tabFolder"></button></div>
@@ -539,7 +550,7 @@ const CDN = {
 const SKIP_DIRS = new Set(['node_modules', '__pycache__', 'venv', 'site-packages']);
 const MD_RE = /\.(md|markdown)$/i;
 const RECENT_MAX = 30;
-const CONTACT = 'littlekg87@gmail.com', VERSION = '1.0.1', YEAR = '2026';
+const CONTACT = 'littlekg87@gmail.com', VERSION = '1.1.0', YEAR = '2026';
 const GITHUB = 'https://github.com/littlekg87', REPO = 'https://github.com/littlekg87/simple_md_reader';
 const RELEASED = { ko: '2026년 10월', en: 'October 2026' };
 
@@ -550,7 +561,14 @@ const I18N = {
     tHome: '시작 화면으로', tAbout: '정보 · 제작자 · 이용 범위',
     featuresTitle: '핵심 기능', tChangelog: '업데이트 기록 보기', uiScale: '화면 배율 (메뉴·버튼·목록 크기)', auto: '자동',
     f1T: '읽기에 맞춘 화면', f1D: '목차와 함께 표·각주·수식·다이어그램까지 깔끔하게 보여 줍니다.',
-    f2T: '그 자리에서 수정', f2D: '본문을 더블클릭하면 바로 고치고, Ctrl+S로 원본 파일에 저장합니다.',
+    f2T: '그 자리에서 수정·새 메모', f2D: '본문을 더블클릭해 바로 고치거나 새 메모를 쓰고, Ctrl+S로 저장합니다.',
+    newMemo: '새 메모', newMemoLong: '새 메모 쓰기', tNewMemo: '새 메모 쓰기 (Alt+N)', continueDraft: '쓰던 메모 이어 쓰기',
+    draftName: '새 메모 (저장 안 됨)', draftRow: '저장하지 않은 메모', untitled: '새 메모',
+    memoPh: '# 제목\n\n여기에 자유롭게 쓰세요. Ctrl+S를 누르면 파일로 저장합니다.\n저장하기 전에 창을 닫아도 이 메모는 브라우저에 남아 있습니다.',
+    saveAsQ: '어디에 저장할까요?', saveAsSub: '열려 있는 폴더 ‘{folder}’에 바로 저장하거나, 다른 위치를 고를 수 있습니다.',
+    saveHere: '이 폴더에 저장', saveElsewhere: '다른 위치…', overwriteQ: '‘{name}’ 파일이 이미 있습니다. 덮어쓸까요?', overwrite: '덮어쓰기',
+    dropDraftQ: '이 메모를 버릴까요?', dropDraftSub: '저장하지 않은 메모 내용이 모두 지워집니다. 되돌릴 수 없습니다.', dropDraftBtn: '메모 버리기',
+    kNew: '새 메모',
     f3T: '내 색, 내 글꼴', f3D: '라이트·다크 말고도 배경색·글자색·서체를 마음대로 고를 수 있습니다.',
     f4T: '편한 글자 크기', f4D: 'Ctrl+휠로 글자 크기를, 보기 설정에서 줄 간격과 본문 폭을 맞춥니다.',
     f5T: '바뀌면 바로 반영', f5D: '다른 프로그램에서 파일을 고치면 화면이 저절로 새로 고쳐집니다.',
@@ -622,7 +640,14 @@ const I18N = {
     tHome: 'Start screen', tAbout: 'About · author · license',
     featuresTitle: 'Key features', tChangelog: 'See the changelog', uiScale: 'Interface size (menus, buttons, lists)', auto: 'Auto',
     f1T: 'Made for reading', f1D: 'Clean layout with contents, tables, footnotes, math and diagrams.',
-    f2T: 'Edit in place', f2D: 'Double-click the text to edit, then press Ctrl+S to save the original file.',
+    f2T: 'Edit in place, new notes', f2D: 'Double-click to edit, or write a new note, then press Ctrl+S to save.',
+    newMemo: 'New note', newMemoLong: 'Write a new note', tNewMemo: 'Write a new note (Alt+N)', continueDraft: 'Continue your note',
+    draftName: 'New note (unsaved)', draftRow: 'Unsaved note', untitled: 'untitled',
+    memoPh: '# Title\n\nWrite anything here. Press Ctrl+S to save it as a file.\nIf you close the window before saving, this note stays in your browser.',
+    saveAsQ: 'Where should it be saved?', saveAsSub: 'Save it straight into the open folder “{folder}”, or choose another location.',
+    saveHere: 'Save in this folder', saveElsewhere: 'Elsewhere…', overwriteQ: '“{name}” already exists. Overwrite it?', overwrite: 'Overwrite',
+    dropDraftQ: 'Discard this note?', dropDraftSub: 'Everything in this unsaved note will be deleted. This cannot be undone.', dropDraftBtn: 'Discard note',
+    kNew: 'New note',
     f3T: 'Your colors, your font', f3D: 'Beyond light and dark, pick any background, text color and typeface.',
     f4T: 'Comfortable text', f4D: 'Ctrl+Wheel for text size; line spacing and width in view settings.',
     f5T: 'Live updates', f5D: 'When another program changes the file, the page refreshes by itself.',
@@ -774,7 +799,7 @@ function applyPrefs() {
 function keysHtml() {
   return [
     ['Ctrl+E', t('kEdit')], [t('kDblKey'), t('kDbl')], ['Ctrl+S', t('kSave')], ['Esc', t('kEsc')],
-    [t('kWheelKey'), t('kSize')], ['Ctrl+O', t('kOpen')], ['Ctrl+Shift+O', t('kOpenFolder')], ['Ctrl+\\', t('kSide')],
+    [t('kWheelKey'), t('kSize')], ['Alt+N', t('kNew')], ['Ctrl+O', t('kOpen')], ['Ctrl+Shift+O', t('kOpenFolder')], ['Ctrl+\\', t('kSide')],
   ].map(([k, v]) => `<kbd>${esc(k)}</kbd><span>${esc(v)}</span>`).join('');
 }
 
@@ -1141,11 +1166,31 @@ async function renderRecent() {
   const q = $('#filter').value.trim().toLowerCase();
   const items = S.recent.filter(e => !q || e.name.toLowerCase().includes(q) || e.hint.toLowerCase().includes(q));
   const rows = [];
+  // 저장하지 않은 메모가 있으면 맨 위에
+  const draft = S.cur?.node.draft ? S.cur.text : draftGet();
+  if (draft || S.cur?.node.draft) {
+    const row = document.createElement('div');
+    row.className = 'trow draft' + (S.cur?.node.draft ? ' active' : '');
+    row.tabIndex = 0;
+    const first = draft.split('\n').find(l => l.trim())?.replace(/^#+\s*/, '').slice(0, 60) || '';
+    row.innerHTML = ICON.pencil + `<span class="nm">${esc(t('draftRow'))}${first ? `<span class="sub">${esc(first)}</span>` : ''}</span><button class="x" title="${esc(t('dropDraftBtn'))}">×</button>`;
+    row.onclick = newMemo;
+    row.querySelector('.x').onclick = async ev => {
+      ev.stopPropagation();
+      if (S.cur?.node.draft) { discard(); return; }
+      if ((await ask(t('dropDraftQ'), t('dropDraftSub'), [
+        { label: t('cancel'), value: 'cancel' },
+        { label: t('dropDraftBtn'), value: 'drop', danger: true, primary: true },
+      ])) === 'drop') { draftSet(''); renderSide(); if (S.screen === showWelcome) showWelcome(); }
+    };
+    rows.push(row);
+  }
   for (const e of items) rows.push(recentRow(e, !!S.cur && await sameEntry(e.handle, S.cur.node.handle)));
   if (seq !== recentSeq || prefs.view !== 'recent') return;
   const el = $('#tree');
   el.replaceChildren(...rows);
   if (!rows.length) el.innerHTML = `<div class="tree-empty">${esc(t(S.recent.length ? 'noMatch' : 'recentEmpty'))}</div>`;
+  if (!S.recent.length && rows.length === 1 && !q) el.insertAdjacentHTML('beforeend', `<div class="tree-empty">${esc(t('recentEmpty'))}</div>`);
 }
 
 async function walk(dir, prefix) {
@@ -1166,7 +1211,7 @@ async function refreshTree() {
   catch { toast(t('readFolderFail')); return; }
   S.tree = tree; S.files = []; S.byPath = new Map();
   (function flat(d) { for (const c of d.children) c.kind === 'dir' ? flat(c) : (S.files.push(c), S.byPath.set(c.path, c)); })(tree);
-  if (S.cur) {
+  if (S.cur?.node.handle) {
     S.cur.node = await nodeFor(S.cur.node.handle);
     S.cur.path = S.cur.node.path;
   }
@@ -1240,13 +1285,27 @@ $('#view-tabs').addEventListener('click', e => {
 const norm = s => s.replace(/\r\n/g, '\n');
 
 // 확인창: buttons = [{ label, value, primary, danger }], Esc나 바깥 클릭은 'cancel'
-function ask(msg, sub, buttons) {
+// opts.input이 있으면 입력 칸을 보여 주고, 입력한 값을 opts.value에 담는다
+function ask(msg, sub, buttons, opts = {}) {
   return new Promise(res => {
     const modal = $('#modal'), box = $('#modal-actions');
     $('#modal-msg').textContent = msg;
     $('#modal-sub').textContent = sub || '';
     box.innerHTML = '';
+    let input = null;
+    if (opts.input != null) {
+      input = document.createElement('input');
+      input.className = 'modal-input';
+      input.value = opts.input;
+      input.spellcheck = false;
+      input.onkeydown = e => {
+        const p = buttons.find(b => b.primary);
+        if (e.key === 'Enter' && p) { e.preventDefault(); done(p.value); }
+      };
+      box.before(input);
+    }
     const done = v => {
+      if (input) { opts.value = input.value; input.remove(); }
       modal.hidden = true;
       document.removeEventListener('keydown', onKey, true);
       modal.onclick = null;
@@ -1265,10 +1324,13 @@ function ask(msg, sub, buttons) {
     modal.onclick = e => { if (e.target === modal) done('cancel'); };
     modal.hidden = false;
     document.addEventListener('keydown', onKey, true);
-    box.lastElementChild.focus();
+    if (input) { input.focus(); input.setSelectionRange(0, input.value.replace(MD_RE, '').length); }
+    else box.lastElementChild.focus();
   });
 }
 async function confirmDiscard() {
+  // 저장 전 메모는 브라우저에 임시 보관되므로 다른 화면으로 가도 잃지 않는다
+  if (S.cur?.node.draft) { clearTimeout(draftTimer); draftSet(S.cur.text); return true; }
   if (!S.dirty) return true;
   const v = await ask(t('unsavedQ', { name: S.cur.node.name }), t('unsavedSub'), [
     { label: t('cancel'), value: 'cancel' },
@@ -1281,6 +1343,18 @@ async function confirmDiscard() {
 
 async function discard() {
   if (!S.cur || !S.dirty) return;
+  if (S.cur.node.draft) {
+    const v = await ask(t('dropDraftQ'), t('dropDraftSub'), [
+      { label: t('cancel'), value: 'cancel' },
+      { label: t('dropDraftBtn'), value: 'drop', danger: true, primary: true },
+    ]);
+    if (v !== 'drop') return;
+    clearTimeout(draftTimer);
+    draftSet('');
+    goHome();
+    toast(t('discarded'));
+    return;
+  }
   const v = await ask(t('discardQ'), t('discardSub'), [
     { label: t('cancel'), value: 'cancel' },
     { label: t('discardBtn'), value: 'discard', danger: true, primary: true },
@@ -1313,6 +1387,7 @@ async function openFile(node, { keepScroll = false } = {}) {
   const parts = node.path.split('/');
   if (!node.single) for (let i = 1; i < parts.length; i++) S.open.add(parts.slice(0, i).join('/') + '/');
   await addRecent(node);
+  lsSet(LAST_KEY, 'file');
   renderSide(); updateCrumb(); updateModeBtn();
   await renderDoc(S.cur.text, { keepScroll });
   if (!keepScroll) main.scrollTop = 0;
@@ -1320,8 +1395,97 @@ async function openFile(node, { keepScroll = false } = {}) {
   return true;
 }
 
+// ── 새 메모 ──
+const DRAFT_KEY = 'mdr-draft', LAST_KEY = 'mdr-last';
+const lsGet = k => { try { return localStorage.getItem(k) || ''; } catch { return ''; } };
+const lsSet = (k, v) => { try { v ? localStorage.setItem(k, v) : localStorage.removeItem(k); } catch {} };
+const draftGet = () => lsGet(DRAFT_KEY);
+const draftSet = v => lsSet(DRAFT_KEY, v);
+let draftTimer;
+
+async function newMemo() {
+  if (S.cur?.node.draft) { if (S.mode !== 'edit') enterEdit({ line: 0, offsetY: 0 }); editor.focus(); return; }
+  if (!(await confirmDiscard())) return;
+  const text = draftGet();
+  S.cur = { node: { kind: 'file', name: '', handle: null, path: '', single: true, draft: true }, path: '', eol: '\n', text, saved: '', mtime: 0 };
+  S.ext = null; S.screen = null; $('#banner').hidden = true;
+  if (S.mode === 'edit') { S.mode = 'read'; document.body.classList.remove('editing'); }
+  setDirty(text !== '');
+  lsSet(LAST_KEY, 'draft');
+  renderSide(); updateCrumb();
+  await renderDoc(text);
+  enterEdit({ line: 0, offsetY: 0 });
+  // 이어 쓰는 경우 맨 끝으로
+  editor.setSelectionRange(text.length, text.length);
+  if (text) main.scrollTop = main.scrollHeight;
+}
+
+// 첫 제목(또는 첫 줄)을 파일 이름으로 제안한다
+function suggestName(text) {
+  const line = (text.match(/^#{1,6}\s+(.+)$/m)?.[1] || text.split('\n').find(l => l.trim()) || '')
+    .replace(/[*_`~[\]#>]/g, '').replace(/[\\/:*?"<>|]/g, ' ').replace(/\s+/g, ' ').trim().slice(0, 40).trim();
+  return (line || t('untitled')) + '.md';
+}
+
+async function saveDraftAs() {
+  const text = S.cur.text;
+  let handle = null;
+  if (S.root) {
+    const opts = { input: suggestName(text) };
+    const v = await ask(t('saveAsQ'), t('saveAsSub', { folder: S.root.name }), [
+      { label: t('cancel'), value: 'cancel' },
+      { label: t('saveElsewhere'), value: 'other' },
+      { label: t('saveHere'), value: 'here', primary: true },
+    ], opts);
+    if (v === 'cancel') return false;
+    if (v === 'here') {
+      let name = (opts.value || '').replace(/[\\/:*?"<>|]/g, ' ').trim();
+      if (!name) return false;
+      if (!MD_RE.test(name)) name += '.md';
+      let exists = false;
+      try { await S.root.getFileHandle(name); exists = true; } catch {}
+      if (exists && (await ask(t('overwriteQ', { name }), '', [
+        { label: t('cancel'), value: 'cancel' },
+        { label: t('overwrite'), value: 'ok', danger: true, primary: true },
+      ])) !== 'ok') return false;
+      if (!(await ensurePerm(S.root))) { toast(t('noWrite')); return false; }
+      try { handle = await S.root.getFileHandle(name, { create: true }); }
+      catch (e) { toast(t('saveFail', { msg: e.message })); return false; }
+    }
+  }
+  if (!handle) {
+    try {
+      handle = await showSaveFilePicker({ id: 'mdr-file', suggestedName: suggestName(text), types: [{ description: 'Markdown', accept: { 'text/markdown': ['.md'] } }] });
+    } catch (e) {
+      if (e.name !== 'AbortError') toast(t('saveFail', { msg: e.message }));
+      return false;
+    }
+  }
+  try {
+    const w = await handle.createWritable();
+    await w.write(text);
+    await w.close();
+  } catch (e) { toast(t('saveFail', { msg: e.message })); return false; }
+  clearTimeout(draftTimer);
+  draftSet('');
+  lsSet(LAST_KEY, 'file');
+  S.cur.node = { kind: 'file', name: handle.name, handle, path: handle.name, single: true };
+  S.cur.saved = text;
+  S.cur.mtime = (await handle.getFile()).lastModified;
+  if (S.root) await refreshTree();
+  else S.cur.node = await nodeFor(handle);
+  S.cur.path = S.cur.node.path;
+  await addRecent(S.cur.node);
+  editor.placeholder = '';
+  setDirty(S.cur.text !== S.cur.saved);
+  renderSide(); updateCrumb();
+  toast(t('saved'));
+  return true;
+}
+
 async function save() {
   if (!S.cur) return;
+  if (S.cur.node.draft) { await saveDraftAs(); return; }
   const h = S.cur.node.handle;
   try {
     if ((await h.queryPermission({ mode: 'readwrite' })) !== 'granted' &&
@@ -1345,11 +1509,13 @@ async function save() {
 function setDirty(d) {
   S.dirty = d;
   document.body.classList.toggle('dirty', d);
-  document.title = S.cur ? `${d ? '● ' : ''}${S.cur.node.name} — ${t('appName')}` : t('appName');
+  const name = S.cur?.node.draft ? t('draftName') : S.cur?.node.name;
+  document.title = S.cur ? `${d ? '● ' : ''}${name} — ${t('appName')}` : t('appName');
 }
 function updateCrumb() {
   const c = $('#crumb');
   if (!S.cur) { c.innerHTML = ''; c.title = ''; return; }
+  if (S.cur.node.draft) { c.innerHTML = `<b>${esc(t('draftName'))}</b>`; c.title = ''; return; }
   const parts = S.cur.path.split('/');
   const name = parts.pop();
   const dirs = (S.cur.node.single ? [] : [S.root.name, ...parts]).map(esc);
@@ -1454,6 +1620,7 @@ function showWelcome() {
     <p class="lead">${t('lead')}</p>
     <div class="actions">
       <button class="wbtn primary" id="w-file">${ICON.file}${esc(t('openFile'))}</button>
+      <button class="wbtn" id="w-new">${ICON.pencil}${esc(t(draftGet() ? 'continueDraft' : 'newMemoLong'))}</button>
       <button class="wbtn" id="w-folder">${ICON.folder}${esc(t('openFolder'))}</button>
     </div>
     <p class="hint">${esc(t('dropHint'))}</p>
@@ -1465,6 +1632,7 @@ function showWelcome() {
     <div class="credit">${creditHtml()}</div></div>`);
   box.querySelector('#w-file').onclick = pickFile;
   box.querySelector('#w-folder').onclick = pickFolder;
+  box.querySelector('#w-new').onclick = newMemo;
   const list = box.querySelector('#w-recent');
   if (list) for (const e of S.recent.slice(0, 8)) list.append(recentRow(e, false));
 }
@@ -1554,6 +1722,7 @@ function enterEdit(at = topVisibleDocLine()) {
   document.body.classList.add('editing');
   $('#fnpop').hidden = true;
   editor.value = S.cur.text;
+  editor.placeholder = S.cur.node.draft ? t('memoPh') : '';
   docEl.hidden = true;
   editor.hidden = false;
   autosize();
@@ -1578,6 +1747,11 @@ editor.addEventListener('input', () => {
   S.cur.text = editor.value;
   setDirty(S.cur.text !== S.cur.saved);
   autosize();
+  if (S.cur.node.draft) {
+    clearTimeout(draftTimer);
+    const cur = S.cur;
+    draftTimer = setTimeout(() => { if (cur.node.draft) { draftSet(cur.text); if (prefs.view === 'recent') renderRecent(); } }, 400);
+  }
 });
 editor.addEventListener('keydown', e => {
   if (e.key === 'Tab' && !e.ctrlKey && !e.altKey && !e.shiftKey) {
@@ -1729,6 +1903,7 @@ $('#btn-mode').onclick = toggleMode;
 $('#btn-save').onclick = save;
 $('#btn-discard').onclick = discard;
 $('#btn-open-file').onclick = pickFile;
+$('#btn-new').onclick = newMemo;
 $('#btn-open-folder').onclick = pickFolder;
 $('#btn-refresh').onclick = async () => { await refreshTree(); toast(t('refreshed')); };
 
@@ -1764,6 +1939,7 @@ document.addEventListener('keydown', e => {
   else if (mod && k === '-') { e.preventDefault(); bump(-1); }
   else if (mod && k === '0') { e.preventDefault(); bump(0); }
   else if (mod && k === 'o') { e.preventDefault(); e.shiftKey ? pickFolder() : pickFile(); }
+  else if (e.altKey && !mod && k === 'n') { e.preventDefault(); newMemo(); }
   else if (mod && k === '\\') { e.preventDefault(); $('#btn-sidebar').click(); }
   else if (e.key === 'Escape') {
     if (!about.hidden) closeAbout();
@@ -1776,7 +1952,10 @@ window.addEventListener('wheel', e => {
   e.preventDefault();
   bump(e.deltaY < 0 ? 1 : -1);
 }, { passive: false });
-window.addEventListener('beforeunload', e => { if (S.dirty) { e.preventDefault(); e.returnValue = ''; } });
+window.addEventListener('beforeunload', e => {
+  if (S.cur?.node.draft) { draftSet(S.cur.text); return; }   // 메모는 임시 보관되므로 묻지 않는다
+  if (S.dirty) { e.preventDefault(); e.returnValue = ''; }
+});
 let resizeTimer;
 window.addEventListener('resize', () => {
   if (prefs.ui !== 'auto') return;
@@ -1848,6 +2027,7 @@ async function init() {
   S.savedRoot = await kvGet('root');
   if (S.savedRoot && await granted(S.savedRoot)) await loadRoot(S.savedRoot, { quiet: true });
   renderSide();
+  if (lsGet(LAST_KEY) === 'draft' && draftGet()) { await newMemo(); return; }
   const last = S.recent[0];
   if (last && await granted(last.handle)) {
     try { await last.handle.getFile(); await openFile(await nodeFor(last.handle)); return; } catch {}

@@ -5,6 +5,13 @@ All notable changes to simple_md_reader. Versions follow [Semantic Versioning](h
 
 새 버전 내려받기 · Download the latest version: [simple_md_reader.html](https://github.com/littlekg87/simple_md_reader/releases/latest/download/simple_md_reader.html)
 
+## [1.1.0] — 2026-10-28
+
+- 추가: **새 메모** (왼쪽 위 ‘새 메모’ 버튼 또는 `Alt+N`). 빈 화면에 바로 쓰고, `Ctrl+S`를 처음 누를 때 저장 위치와 이름을 정합니다. 폴더를 열어 두었으면 그 폴더에 이름만 정해 바로 저장할 수 있고, 첫 제목이 파일 이름으로 제안됩니다.
+  Added **New note** (the “New note” button or `Alt+N`). Start writing right away and choose a location and name the first time you press `Ctrl+S`. With a folder open, you can save straight into it; the first heading is suggested as the file name.
+- 저장하기 전의 메모는 브라우저에 임시 보관되어, 창을 닫거나 다른 파일을 열어도 남아 있습니다. 최근 파일 목록 맨 위와 시작 화면의 ‘쓰던 메모 이어 쓰기’로 다시 열 수 있습니다.
+  Unsaved notes are kept in your browser, so they survive closing the window or opening other files. Reopen one from the top of the recent list or with “Continue your note” on the start screen.
+
 ## [1.0.1] — 2026-10-28
 
 - 추가: **화면 배율** 설정 (보기 설정 → 자동 / 100%~200%). 메뉴·버튼·목록 크기를 한꺼번에 키웁니다. 기본값 ‘자동’은 큰 화면에서 알아서 키워 줍니다.
@@ -31,5 +38,6 @@ All notable changes to simple_md_reader. Versions follow [Semantic Versioning](h
 - 한국어 / English 화면 전환
   Korean / English interface
 
+[1.1.0]: https://github.com/littlekg87/simple_md_reader/releases/tag/v1.1.0
 [1.0.1]: https://github.com/littlekg87/simple_md_reader/releases/tag/v1.0.1
 [1.0.0]: https://github.com/littlekg87/simple_md_reader/releases/tag/v1.0.0

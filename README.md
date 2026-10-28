@@ -5,7 +5,7 @@
 md 파일을 편하게 읽고, 그 자리에서 바로 고쳐 저장하는 간단한 리더<br>
 A simple reader for Markdown files that lets you read comfortably and edit in place
 
-**[👉 바로 쓰기 · Try it now](https://littlekg87.github.io/simple_md_reader/)**
+**[👉 바로 쓰기 · Try it now](https://littlekg87.github.io/simple_md_reader/)** &nbsp;|&nbsp; **[⬇️ 내려받기 · Download (zip)](https://github.com/littlekg87/simple_md_reader/releases/latest/download/simple_md_reader.zip)**
 
 [![License: CC BY-NC 4.0](https://img.shields.io/badge/License-CC%20BY--NC%204.0-lightgrey.svg)](https://creativecommons.org/licenses/by-nc/4.0/)
 ![Version](https://img.shields.io/badge/version-1.0.0-blue.svg)
@@ -35,9 +35,18 @@ A simple reader for Markdown files that lets you read comfortably and edit in pl
 
 Chrome이나 Edge로 위 주소를 열면 설치 없이 바로 쓸 수 있습니다. 여는 md 파일은 내 컴퓨터 안에서만 읽고 저장하며, 어디로도 올라가지 않습니다.
 
+### 내려받아 쓰기
+
+**[⬇️ simple_md_reader.zip 내려받기](https://github.com/littlekg87/simple_md_reader/releases/latest/download/simple_md_reader.zip)** (항상 최신 버전)
+
+1. 위 링크로 zip 파일을 받아 압축을 풉니다.
+2. 폴더 안의 `simple_md_reader.html`을 **Chrome** 또는 **Edge**로 엽니다. 파일을 브라우저 창에 끌어다 놓아도 됩니다.
+
+지난 버전과 바뀐 내용은 [Releases](https://github.com/littlekg87/simple_md_reader/releases)에서 볼 수 있습니다.
+
 ### 사용 방법
 
-1. 위 주소로 들어가거나, 이 저장소를 내려받아 `simple_md_reader.html`을 **Chrome** 또는 **Edge**로 엽니다.
+1. 위 주소로 들어가거나, 내려받은 `simple_md_reader.html`을 **Chrome** 또는 **Edge**로 엽니다.
 2. **파일 열기**로 md 파일을 고릅니다. 문서 속 이미지나 다른 md 파일로 가는 링크까지 쓰려면 **폴더 열기**로 그 파일이 든 폴더를 엽니다.
 3. 본문을 더블클릭하거나 `Ctrl+E`를 누르면 편집 화면이 열리고, `Ctrl+S`로 원본 파일에 저장합니다.
 
@@ -99,9 +108,18 @@ A Markdown reader that runs as a single HTML file, with nothing to install.
 
 Open the link in Chrome or Edge and start right away. Files you open are read and saved only on your own computer; nothing is uploaded.
 
+### Download
+
+**[⬇️ Download simple_md_reader.zip](https://github.com/littlekg87/simple_md_reader/releases/latest/download/simple_md_reader.zip)** (always the latest version)
+
+1. Download the zip file and unzip it.
+2. Open `simple_md_reader.html` in **Chrome** or **Edge**. You can also drag the file onto a browser window.
+
+See [Releases](https://github.com/littlekg87/simple_md_reader/releases) for earlier versions and what changed.
+
 ### How to use
 
-1. Open the link above, or download this repository and open `simple_md_reader.html` in **Chrome** or **Edge**.
+1. Open the link above, or open the downloaded `simple_md_reader.html` in **Chrome** or **Edge**.
 2. Click **Open file** to pick a Markdown file. To use images and links to other .md files, click **Open folder** and choose the folder that contains it.
 3. Double-click the text or press `Ctrl+E` to edit, and press `Ctrl+S` to save to the original file.
 

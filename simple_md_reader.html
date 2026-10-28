@@ -523,6 +523,7 @@ const SKIP_DIRS = new Set(['node_modules', '__pycache__', 'venv', 'site-packages
 const MD_RE = /\.(md|markdown)$/i;
 const RECENT_MAX = 30;
 const CONTACT = 'littlekg87@naver.com', VERSION = '1.0.0', YEAR = '2026';
+const GITHUB = 'https://github.com/littlekg87', REPO = 'https://github.com/littlekg87/simple_md_reader';
 const RELEASED = { ko: '2026년 10월', en: 'October 2026' };
 
 // ── 문구 (한국어 / English) ──
@@ -580,12 +581,13 @@ const I18N = {
     dropOnly: 'md 파일이나 폴더만 열 수 있습니다',
     mermaidLoad: 'Mermaid를 불러오지 못했습니다. 인터넷 연결을 확인하세요.', mermaidErr: 'Mermaid 문법 오류',
     parseErr: '문서를 해석하지 못했습니다: {msg}',
-    credit: '© {year} <b>김근하</b> · CC BY-NC 4.0 · <a data-about tabindex="0">제작자 · 이용 범위 보기</a>',
+    credit: '© {year} <b>김근하</b> · CC BY-NC 4.0 · <a href="{github}" target="_blank" rel="noopener">GitHub</a> · <a data-about tabindex="0">제작자 · 이용 범위 보기</a>',
     about: `<h2 id="about-title">simple_md_reader</h2>
       <p class="ver">버전 {version} · {released}</p>
       <p class="desc">md 파일을 편하게 읽고, 그 자리에서 바로 고쳐 저장할 수 있는 간단한 리더입니다.</p>
       <dl>
         <dt>만든 사람</dt><dd><b>김근하</b><br><span class="sub">대한민국, 국립부경대학교 해양인문학연구소 전임연구원</span></dd>
+        <dt>GitHub</dt><dd><a href="{github}" target="_blank" rel="noopener">github.com/littlekg87</a><br><span class="sub">소스 코드·새 버전: <a href="{repo}" target="_blank" rel="noopener">github.com/littlekg87/simple_md_reader</a></span></dd>
         <dt>제작 방식</dt><dd>Claude(Anthropic)와 함께 바이브 코딩으로 만들었습니다.</dd>
         <dt>라이선스</dt><dd><a href="https://creativecommons.org/licenses/by-nc/4.0/deed.ko" target="_blank" rel="noopener">CC BY-NC 4.0</a> (저작자표시-비영리 4.0 국제)</dd>
         <dt>이용 범위</dt><dd><ul>
@@ -651,12 +653,13 @@ const I18N = {
     dropOnly: 'Only Markdown files or folders can be opened',
     mermaidLoad: 'Could not load Mermaid. Check your internet connection.', mermaidErr: 'Mermaid syntax error',
     parseErr: 'Could not parse the document: {msg}',
-    credit: '© {year} <b>Kunha Kim</b> · CC BY-NC 4.0 · <a data-about tabindex="0">About, author &amp; license</a>',
+    credit: '© {year} <b>Kunha Kim</b> · CC BY-NC 4.0 · <a href="{github}" target="_blank" rel="noopener">GitHub</a> · <a data-about tabindex="0">About, author &amp; license</a>',
     about: `<h2 id="about-title">simple_md_reader</h2>
       <p class="ver">Version {version} · {released}</p>
       <p class="desc">A simple reader for Markdown files that lets you read comfortably and edit and save in place.</p>
       <dl>
         <dt>Author</dt><dd><b>Kunha Kim</b><br><span class="sub">Full-time Researcher, Institute of Marine Humanities, Pukyong National University, Republic of Korea</span></dd>
+        <dt>GitHub</dt><dd><a href="{github}" target="_blank" rel="noopener">github.com/littlekg87</a><br><span class="sub">Source code &amp; updates: <a href="{repo}" target="_blank" rel="noopener">github.com/littlekg87/simple_md_reader</a></span></dd>
         <dt>Made with</dt><dd>Vibe-coded together with Claude (Anthropic).</dd>
         <dt>License</dt><dd><a href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank" rel="noopener">CC BY-NC 4.0</a> (Attribution-NonCommercial 4.0 International)</dd>
         <dt>You may</dt><dd><ul>
@@ -706,8 +709,8 @@ const contrast = (a, b) => { const x = luminance(a), y = luminance(b); return (M
 // 강조색·코드 색·다이어그램은 라이트/다크 중 배경에 가까운 쪽을 바탕으로 쓴다
 const baseTheme = () => theme() === 'custom' ? (luminance(prefs.custom.bg) < .18 ? 'dark' : 'light') : theme();
 const t = (k, v = {}) => (I18N[prefs.lang]?.[k] ?? I18N.ko[k] ?? k).replace(/\{(\w+)\}/g, (_, x) => v[x] ?? '');
-const creditHtml = () => t('credit', { year: YEAR });
-const aboutHtml = () => t('about', { contact: esc(CONTACT), version: VERSION, year: YEAR, released: RELEASED[prefs.lang] });
+const creditHtml = () => t('credit', { year: YEAR, github: GITHUB });
+const aboutHtml = () => t('about', { contact: esc(CONTACT), version: VERSION, year: YEAR, released: RELEASED[prefs.lang], github: GITHUB, repo: REPO });
 
 function applyPrefs() {
   const r = document.documentElement;

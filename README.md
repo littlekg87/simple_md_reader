@@ -6,7 +6,7 @@ md 파일을 편하게 읽고, 그 자리에서 바로 고쳐 저장할 수 있�
 [English below](#english)
 
 - **버전**: 1.0.0 (2026년 10월)
-- **만든 사람**: 김근하 — 대한민국, 국립부경대학교 해양인문학연구소 전임연구원
+- **만든 사람**: 김근하 — 대한민국, 국립부경대학교 해양인문학연구소 전임연구원 ([GitHub @littlekg87](https://github.com/littlekg87))
 - **제작 방식**: Claude(Anthropic)와 함께 바이브 코딩으로 만들었습니다.
 - **라이선스**: [CC BY-NC 4.0](https://creativecommons.org/licenses/by-nc/4.0/deed.ko) (저작자표시-비영리 4.0 국제)
 - **상업적 이용 문의**: littlekg87@naver.com
@@ -67,7 +67,7 @@ markdown-it (MIT), markdown-it-footnote (MIT), highlight.js (BSD-3-Clause), DOMP
 A simple reader for Markdown files that lets you read comfortably and edit and save in place. It runs as a single HTML file with nothing to install.
 
 - **Version**: 1.0.0 (October 2026)
-- **Author**: Kunha Kim — Full-time Researcher, Institute of Marine Humanities, Pukyong National University, Republic of Korea
+- **Author**: Kunha Kim — Full-time Researcher, Institute of Marine Humanities, Pukyong National University, Republic of Korea ([GitHub @littlekg87](https://github.com/littlekg87))
 - **Made with**: Vibe-coded together with Claude (Anthropic)
 - **License**: [CC BY-NC 4.0](https://creativecommons.org/licenses/by-nc/4.0/) (Attribution-NonCommercial 4.0 International)
 - **Commercial use**: littlekg87@naver.com
